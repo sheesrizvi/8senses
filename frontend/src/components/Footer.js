@@ -158,7 +158,7 @@ const Footer = () => {
           </List>
         </Center>
         <Right>
-          <Title>Contact</Title>
+          {/* <Title>Contact</Title> */}
           {/* <ContactItem>
             <Room style={{ marginRight: "10px" }} /> 622 Dixie Path , South
             Tobinchester 98336

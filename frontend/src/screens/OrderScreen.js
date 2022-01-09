@@ -16,7 +16,7 @@ import {
   ORDER_DELIVER_RESET,
 } from '../constants/orderConstants'
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
   const orderId = match.params.id
 
   const dispatch = useDispatch()
@@ -46,7 +46,10 @@ const OrderScreen = ({ match }) => {
   }
 
   useEffect(() => {
-    if (!order || successPay || successDeliver) {
+    if (!userInfo) {
+      history.push('/login')
+    }
+    if (!order || successPay || successDeliver || order._id !== orderId) {
       dispatch({ type: ORDER_PAY_RESET })
       dispatch({ type: ORDER_DELIVER_RESET })
       dispatch(getOrderDetails(orderId))
@@ -162,7 +165,7 @@ const OrderScreen = ({ match }) => {
               </ListGroup.Item>
 
               {loadingDeliver && <Loader />}
-              {userInfo.isAdmin && !order.isDelivered && (
+              {userInfo && userInfo.isAdmin && !order.isDelivered && (
                 <ListGroup.Item>
                   <Button
                     type='button'

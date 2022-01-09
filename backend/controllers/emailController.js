@@ -3,8 +3,8 @@ import nodemailer from 'nodemailer'
 const contactEmail = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'solutionsrna@gmail.com',
-    pass: 'lucknow@123',
+    user: '8sense123@gmail.com',
+    pass: '12sensE34',
   },
 })
 
@@ -39,7 +39,7 @@ console.log(email);
   
 
   const mail = {
-    from: '"8 Senses" <info@8senses.com>',
+    from: '"8 Senses" <8semse123@gmail.com>',
     to: email,
     subject: 'Order confirmation 8senses',
     html: `  
