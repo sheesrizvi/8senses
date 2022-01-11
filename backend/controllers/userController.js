@@ -17,6 +17,7 @@ const authUser = asyncHandler(async (req, res) => {
       name: user.name,
       email: user.email,
       isAdmin: user.isAdmin,
+      shippingAddress: user.shippingAddress,
       token: generateToken(user._id),
     })
   } else {
@@ -167,6 +168,25 @@ const updateUser = asyncHandler(async (req, res) => {
     res.status(404)
     throw new Error('User not found')
   }
+})
+
+const saveShippingAddress = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id)
+  if(user) {
+    user.shippingAddress = req.body.shippingAddress || user.shippingAddress
+    const updatedUser = await user.save()
+    res.json({
+      _id: updatedUser._id,
+      name: updatedUser.name,
+      email: updatedUser.email,
+      shippingAddress: updateUser.shippingAddress
+      
+    })
+  }  else {
+    res.status(404)
+    throw new Error('User not found')
+  }
+  
 })
 
 export {

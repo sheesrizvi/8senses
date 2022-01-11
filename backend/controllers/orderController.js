@@ -1,28 +1,16 @@
 import asyncHandler from 'express-async-handler'
 import Order from '../models/orderModel.js'
-import nodemailer from 'nodemailer'
+import User from '../models/userModel.js'
 
-const contactEmail = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: 'solutionsrna@gmail.com',
-    pass: 'lucknow@123',
-  },
-})
 
-contactEmail.verify((error) => {
-  if (error) {
-    console.log(error)
-  } else {
-    console.log('Ready to Send')
-  }
-})
 
 // @desc    Create new order
 // @route   POST /api/orders
 //@access   Private
 
 const addOrderItems = asyncHandler(async (req, res) => {
+  console.log(req.body);
+  const user = await User.findById(req.body.userId)
   const {
     orderItems,
     shippingAddress,
@@ -48,6 +36,9 @@ const addOrderItems = asyncHandler(async (req, res) => {
       shippingPrice,
       totalPrice,
     })
+    
+    user.shippingAddress = req.body.shippingAddress || user.shippingAddress
+    const updatedUser = await user.save()
 
     const createdOrder = await order.save()
     res.status(201).json(createdOrder)

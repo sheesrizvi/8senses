@@ -4,17 +4,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer'
 import CheckoutSteps from '../components/CheckoutSteps'
 import { saveShippingAddress } from '../actions/cartActions'
+import { getUserDetails, updateUserProfile } from '../actions/userActions'
+
+
+
 
 const ShippingScreen = ({ history }) => {
+  
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+  console.log(userInfo);
+  
+
   const cart = useSelector((state) => state.cart)
   const { shippingAddress } = cart
 
-  const [address, setAddress] = useState(shippingAddress.address)
-  const [city, setCity] = useState(shippingAddress.city)
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
-  const [country, setCountry] = useState(shippingAddress.country)
-  const [mobileNumber, setMobileNumber] = useState(shippingAddress.mobileNumber)
-  const [email, setEmail] = useState(shippingAddress.email)
+  const [address, setAddress] = useState(userInfo.shippingAddress.address)
+  const [city, setCity] = useState(userInfo.shippingAddress.city)
+  const [postalCode, setPostalCode] = useState(userInfo.shippingAddress.postalCode)
+  const [country, setCountry] = useState(userInfo.shippingAddress.country)
+  const [mobileNumber, setMobileNumber] = useState(userInfo.shippingAddress.mobileNumber)
+  const [email, setEmail] = useState(userInfo.shippingAddress.email)
 
   const dispatch = useDispatch()
 
@@ -30,6 +40,7 @@ const ShippingScreen = ({ history }) => {
         email,
       })
     )
+    // console.log(user);
     history.push('/payment')
   }
 

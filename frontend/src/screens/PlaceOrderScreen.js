@@ -16,6 +16,9 @@ const PlaceOrderScreen = ({ history }) => {
   } else if (!cart.paymentMethod) {
     history.push('/payment')
   }
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+  // console.log(userInfo._id);
 
   //   Calculate prices
   const addDecimals = (num) => {
@@ -88,6 +91,8 @@ const PlaceOrderScreen = ({ history }) => {
         shippingPrice: cart.shippingPrice,
         taxPrice: cart.taxPrice,
         totalPrice: cart.totalPrice,
+        userId: userInfo._id
+        
       })
     )
     
